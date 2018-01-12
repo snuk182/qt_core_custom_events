@@ -1,0 +1,24 @@
+[build-dependencies]
+[build-dependencies.qt_build_tools]
+path = "../cpp_to_rust/qt_generator/qt_build_tools"
+version = "0.2.3"
+
+[dependencies]
+libc = "0.2"
+
+[dependencies.cpp_utils]
+path = "../cpp_to_rust/cpp_to_rust/cpp_utils"
+version = "0.2.0"
+
+[dependencies.qt_core]
+path = "../qt_core"
+version = "0.2.3"
+
+[package]
+authors = ["Pavel Strakhov <ri@idzaaus.org>","Serhii Plyhun <snuk188@gmail.com>"]
+build = "build.rs"
+description = "Custom event-enabled QObject for usage with qt_core Rust bindings `https://github.com/rust-qt/cpp_to_rust`"
+license = "MIT"
+name = "qt_core_custom_events"
+repository = "https://github.com/snuk182/qt_core_custom_events"
+version = "0.1.0"
