@@ -11,19 +11,24 @@ impl CustomEventFilter {
     let ffi_result = unsafe { ::ffi::qt_core_c_QCustomEventFilter_new(Some(handler), filter_ptr) };
     unsafe { ::cpp_utils::CppBox::new(ffi_result) }
   }
-}
-impl Drop for ::custom_event_filter::CustomEventFilter {
-  fn drop(&mut self) {
+  pub fn clear(&mut self) {
     unsafe {
       let filter_ptr = ::ffi::qt_core_c_QCustomEventFilter_clear(self as *mut ::custom_event_filter::CustomEventFilter) as *mut Box<FnMut(&mut ::qt_core::object::Object,&::qt_core::event::Event) -> bool>;
       if !filter_ptr.is_null() {
         let _:Box<Box<FnMut(&mut ::qt_core::object::Object,&::qt_core::event::Event) -> bool>>  = Box::from_raw(filter_ptr);
       }
+    }
+  }
+}
+impl Drop for ::custom_event_filter::CustomEventFilter {
+  fn drop(&mut self) {
+  	self.clear();
+    unsafe {
       ::ffi::qt_core_c_QCustomEventFilter_delete(self as *mut ::custom_event_filter::CustomEventFilter)
     }
   }
 }
-// HERE THE CLOSURE WILL LEAK IF DROP NOT CALLED BEFORE!!!
+// HERE THE CLOSURE WILL LEAK IF DROP OR CLEAR NOT CALLED BEFORE!!!
 impl ::cpp_utils::CppDeletable for ::custom_event_filter::CustomEventFilter {
   fn deleter() -> ::cpp_utils::Deleter<Self> {
     ::ffi::qt_core_c_QCustomEventFilter_delete
