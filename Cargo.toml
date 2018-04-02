@@ -14,9 +14,6 @@ version = "~0.2"
 [dependencies]
 libc = "~0.2"
 
-[dependencies.cpp_utils]
-version = "~0.2"
-
 [dependencies.qt_core]
 version = "~0.2"
 

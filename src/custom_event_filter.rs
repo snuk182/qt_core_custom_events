@@ -9,7 +9,7 @@ impl CustomEventFilter {
     let filter_ptr = Box::into_raw(boxed_filter) as *mut _ as *mut ::libc::c_void;
 
     let ffi_result = unsafe { ::ffi::qt_core_c_QCustomEventFilter_new(Some(handler), filter_ptr) };
-    unsafe { ::cpp_utils::CppBox::new(ffi_result) }
+    unsafe { ::qt_core::cpp_utils::CppBox::new(ffi_result) }
   }
   pub fn clear(&mut self) {
     unsafe {
@@ -29,12 +29,12 @@ impl Drop for ::custom_event_filter::CustomEventFilter {
   }
 }
 // HERE THE CLOSURE WILL LEAK IF DROP OR CLEAR NOT CALLED BEFORE!!!
-impl ::cpp_utils::CppDeletable for ::custom_event_filter::CustomEventFilter {
-  fn deleter() -> ::cpp_utils::Deleter<Self> {
+impl ::qt_core::cpp_utils::CppDeletable for ::custom_event_filter::CustomEventFilter {
+  fn deleter() -> ::qt_core::cpp_utils::Deleter<Self> {
     ::ffi::qt_core_c_QCustomEventFilter_delete
   }
 }
-impl ::cpp_utils::StaticCast<::qt_core::object::Object> for ::custom_event_filter::CustomEventFilter {
+impl ::qt_core::cpp_utils::StaticCast<::qt_core::object::Object> for ::custom_event_filter::CustomEventFilter {
   fn static_cast_mut(&mut self) -> &mut ::qt_core::object::Object {
     let ffi_result = unsafe { ::ffi::qt_core_c_QCustomEventFilter_G_static_cast_QObject_ptr(self as *mut ::custom_event_filter::CustomEventFilter) };
     unsafe { ffi_result.as_mut() }.expect("Attempted to convert null pointer to reference")
