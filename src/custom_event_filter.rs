@@ -4,8 +4,8 @@ pub struct CustomEventFilter(u8);
 
 impl CustomEventFilter {
   pub fn new<F>(filter: F) -> ::qt_core::cpp_utils::CppBox<::custom_event_filter::CustomEventFilter>
-      where F: for<'a,'b> FnMut(&'a mut ::qt_core::object::Object,&'b ::qt_core::event::Event) -> bool {
-    let boxed_filter: Box<Box<FnMut(&mut ::qt_core::object::Object,&::qt_core::event::Event) -> bool>> = Box::new(Box::new(filter));
+      where F: for<'a,'b> FnMut(&'a mut ::qt_core::object::Object,&'b mut ::qt_core::event::Event) -> bool {
+    let boxed_filter: Box<Box<FnMut(&mut ::qt_core::object::Object,&mut ::qt_core::event::Event) -> bool>> = Box::new(Box::new(filter));
     let filter_ptr = Box::into_raw(boxed_filter) as *mut _ as *mut ::libc::c_void;
 
     let ffi_result = unsafe { ::ffi::qt_core_c_QCustomEventFilter_new(Some(handler), filter_ptr) };
@@ -13,9 +13,9 @@ impl CustomEventFilter {
   }
   pub fn clear(&mut self) {
     unsafe {
-      let filter_ptr = ::ffi::qt_core_c_QCustomEventFilter_clear(self as *mut ::custom_event_filter::CustomEventFilter) as *mut Box<FnMut(&mut ::qt_core::object::Object,&::qt_core::event::Event) -> bool>;
+      let filter_ptr = ::ffi::qt_core_c_QCustomEventFilter_clear(self as *mut ::custom_event_filter::CustomEventFilter) as *mut Box<FnMut(&mut ::qt_core::object::Object,&mut ::qt_core::event::Event) -> bool>;
       if !filter_ptr.is_null() {
-        let _:Box<Box<FnMut(&mut ::qt_core::object::Object,&::qt_core::event::Event) -> bool>>  = Box::from_raw(filter_ptr);
+        let _:Box<Box<FnMut(&mut ::qt_core::object::Object,&mut ::qt_core::event::Event) -> bool>>  = Box::from_raw(filter_ptr);
       }
     }
   }
@@ -45,7 +45,7 @@ impl ::qt_core::cpp_utils::StaticCast<::qt_core::object::Object> for ::custom_ev
     unsafe { ffi_result.as_ref() }.expect("Attempted to convert null pointer to reference")
   }
 }
-extern "C" fn handler(filter_ptr: *mut ::libc::c_void, target: *mut ::qt_core::object::Object, event: *const ::qt_core::event::Event) -> bool {
-    let filter: &mut Box<FnMut(&mut ::qt_core::object::Object,&::qt_core::event::Event) -> bool> = unsafe { ::std::mem::transmute(filter_ptr) };
-    unsafe { filter(&mut *target, &*event) as bool }
+extern "C" fn handler(filter_ptr: *mut ::libc::c_void, target: *mut ::qt_core::object::Object, event: *mut ::qt_core::event::Event) -> bool {
+    let filter: &mut Box<FnMut(&mut ::qt_core::object::Object,&mut ::qt_core::event::Event) -> bool> = unsafe { ::std::mem::transmute(filter_ptr) };
+    unsafe { filter(&mut *target, &mut *event) as bool }
 }
