@@ -1,5 +1,5 @@
-extern crate qt_build_tools;
+extern crate qt_ritual_build;
 
 fn main() {
-  qt_build_tools::run("core")
+  qt_ritual_build::run("qt_core")
 }
